@@ -12,7 +12,7 @@ parse_income <- function(df,
       str_detect(!!income, "\\$") ~ str_extract(!!income, "[\\d,]{6,7}"),
       TRUE                        ~ "Unknown")) %>%
     mutate(income_sort     = as.numeric(str_replace_all(income_sort,",", "")),
-           income_quintile = case_when(income_sort < )) %>%
+           income_quintile = case_when(income_sort < 1)) %>%
     arrange(income_sort)
 
 
