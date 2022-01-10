@@ -10,6 +10,11 @@ Description:
       UWSMPH medical student admissions and academic data. Typically the source
       data are one of these three databses: AMP/AMCAS, SIS, or OASIS.
 License: MIT + file LICENSE
+Depends: 
+    R (>= 3.0.2)
+Imports: 
+    tidyverse
+    lubridate
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.2
