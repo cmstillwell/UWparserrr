@@ -1,0 +1,15 @@
+Package: UWparserrr
+Title: Helper Functions for UWSMPH Data Analysis
+Version: 0.0.0.9000
+Authors@R: 
+    person("Christopher", "Stillwell", , 
+           "chris.stillwell@wisc.edu", role = c("aut", "cre"),
+           comment = c(ORCID = "YOUR-ORCID-ID"))
+Description: 
+    This package includes a variety of helper functioned used when dealing with
+      UWSMPH medical student admissions and academic data. Typically the source
+      data are one of these three databses: AMP/AMCAS, SIS, or OASIS.
+License: MIT + file LICENSE
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.2
