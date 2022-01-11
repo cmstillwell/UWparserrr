@@ -18,3 +18,43 @@ parse_income <- function(df,
 
   return(tbl_income)
 }
+
+# regex editor - install me
+devtools::install_github("gadenbuie/regexplain")
+# install Victor mono font
+
+# get a vector to test
+fctr <- factor(tbl_income$`Childhood Family Income Level`)
+
+fct_num_range <- function(.factor, .range_sep = " - ") {
+  require(stringr)
+  require(readr)
+
+  # convert to a factor
+  if (is.factor(.factor) == FALSE) {
+    .factor <- factor(.factor)
+  }
+
+  # save factor levels
+  lvl <- levels(.factor)
+
+  # isolate any levels that don't contain any numbers
+  notnum <- str_subset(lvl, "\\d", negate = TRUE)
+
+  # assemble the regex search string for upper boundary
+  rgx_upper <- paste("(?<=", test, ")[\\d,]+", sep = "")
+
+  # make a table factor levels and their range boundaries
+  tbl <- lvl %>%
+    as_tibble() %>%
+    mutate(lower = parse_number(lvl, na = notnum,),
+           upper = parse_number(str_extract(lvl, rgx_upper), na = notnum)) %>%
+    arrange(lower, desc(upper))
+  #need to deal with the NA sort issue
+  #https://stackoverflow.com/questions/25258817/how-to-have-nas-displayed-first-using-arrange
+  return(tbl)
+
+}
+
+
+
