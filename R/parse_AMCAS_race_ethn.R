@@ -17,18 +17,18 @@ parse_race_text <- function(.data, race.field, hispanic.field) {
 
   .data <- .data %>%
     mutate(.Black      = str_detect(!!race.field,
-                                      regex("african american", TRUE)),
+                                    regex("afric|black", TRUE)),
            .Asian      = str_detect(!!race.field, regex("asian", TRUE)),
            .AsianURM   = str_detect(!!race.field,
-                                      regex("vietnam|laotian|cambodian|hmong",
-                                            TRUE)),
+                                    regex("viet|laot|cambod|hmong",
+                                          TRUE)),
            .HawaiianPI = str_detect(!!race.field,
-                                      regex("native hawaiian", TRUE)),
+                                    regex("hawaii|pacific", TRUE)),
            .Native     = str_detect(!!race.field,
-                                      regex("american indian", TRUE)),
+                                    regex("american indian|tribe", TRUE)),
            .White      = str_detect(!!race.field, regex("white", TRUE)),
            .Hispanic   = str_detect(!!hispanic.field,
-                                      regex("hispanic|yes", TRUE)))
+                                    regex("(?<!not )hispanic|yes|^y$", TRUE)))
   return(.data)
 }
 
@@ -89,7 +89,8 @@ parse_hispanic_text <- function(.data, hispanic.field) {
 
   .data <- .data %>%
     mutate(.Hispanic = str_detect(!!hispanic.field,
-                                  regex("[^not ]hispanic", ignore.case = TRUE)))
+                                  regex("(?<!not )hispanic|^y$|yes",
+                                        ignore.case = TRUE)))
   return(.data)
 }
 
@@ -110,8 +111,11 @@ parse_urm <- function(.data) {
   }
 
   .data <- .data %>%
-    mutate(.URM = if_else(as.numeric(.Black + .AsianURM + .HawaiianPI +
-                                       .Native + .Hispanic) > 0, TRUE, FALSE))
+    mutate(.URM =
+             if_else(as.numeric(.Black + .AsianURM + .HawaiianPI + .Native +
+                                  .Hispanic) > 0,
+                     TRUE,
+                     FALSE))
   return(.data)
 }
 
@@ -132,25 +136,25 @@ parse_ipeds <- function(.data) {
   }
 
   .data <- .data %>%
-  mutate(.Count = as.numeric(.Black + (.Asian && .AsianURM) +
-                               .HawaiianPI + .Native + .White +
-                               .Hispanic),
-         .IPEDS =
-           case_when(.Hispanic == 1 ~ "Hispanic/Latino",
-                     .Count > 1     ~ "Two or more races",
-                     .Asian && .AsianURM ~ "Asian",
-                     .Black         ~ "Black / African American",
-                     .HawaiianPI    ~ "Native Hawaiian or Other Pacific Islander",
-                     .Native        ~ "American Indian or Alaska Native",
-                     .White         ~ "White",
-                     TRUE             ~ "Race/ethnicity unknown"))
+    mutate(.Count = as.numeric(.Black + (.Asian | .AsianURM) + .HawaiianPI +
+                                 .Native + .White + .Hispanic),
+           .IPEDS =
+             case_when(.Hispanic   ~ "Hispanic/Latino",
+                       .Count > 1  ~ "Two or more races",
+                       .AsianURM   ~ "SE Asian (URM)",
+                       .Asian      ~ "Asian",
+                       .Black      ~ "Black / African American",
+                       .HawaiianPI ~ "Native Hawaiian or Other Pacific Islander",
+                       .Native     ~ "American Indian or Alaska Native",
+                       .White      ~ "White",
+                       TRUE        ~ "Race/ethnicity unknown"))
   return(.data)
 }
 
 
 # Helper Functions --------------------------------------------------------
 
-#' Tests whether the dataframe/tibble field is formatted based on the AMCAS
+#' Tests whether the  field is formatted based on the AMCAS / Dept. of Education
 #' racial code standard framework.
 #'
 #' @param .field A character vector
@@ -171,7 +175,6 @@ test_race_field <- function(.field) {
 #'
 #' @return Boolean: TRUE (if all fields are present), FALSE (if any are missing)
 assert_IPEDS_fields <- function(.data) {
-  all(c(".Black", ".AsianURM", ".HawaiianPI", ".Native",
-             ".Hispanic") %in% names(.data))
+  all(c(".Black", ".AsianURM", ".Asian", ".HawaiianPI", ".Native",
+        ".Hispanic") %in% names(.data))
 }
-
