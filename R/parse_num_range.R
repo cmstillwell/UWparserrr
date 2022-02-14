@@ -4,7 +4,7 @@
 #'
 #' This function takes a factor and typically returns the same but re-leveled so
 #' that ambiguous numeric ranges (e.g. less than 10, 11-15, 16-20, more than 20)
-#' are ordered correctly in the factor levels. The function can also be directed
+#' are ordered correctly as factor levels. The function can also be directed
 #' to return a table with the full level parsing, including upper and lower
 #' boundaries. This useful in complex cases where this parser is insufficient.
 #' The function also removes any currency symbols and thousands separators.
@@ -17,7 +17,7 @@
 #'
 #' @returns Either the input factor re-leveled or the table of levels parsed into columns
 #'
-fct_num_range <- function(.fctr,
+fct_num_range <- function(x,
                           .range_sep = " - ",
                           .return = "factor") {
   require(stringr)
@@ -25,12 +25,12 @@ fct_num_range <- function(.fctr,
   require(dplyr)
 
   # convert to a factor
-  if (is.factor(.fctr) == FALSE) {
-    .fctr <- factor(.fctr)
+  if (is.factor(x) == FALSE) {
+    x <- factor(x)
   }
 
   # save factor levels
-  lvl <- levels(.fctr)
+  lvl <- levels(x)
 
   # isolate any levels that don't contain any numbers
   notnum <- str_subset(lvl, "\\d", negate = TRUE)
@@ -46,12 +46,14 @@ fct_num_range <- function(.fctr,
     arrange(lower, !is.na(upper), desc(upper))
 
   # set output
+  output <- x
 
-  output <- .fctr
   if (.return == "factor") {
-      output <- factor(.fctr, levels = tbl_lvl_parse$level)
+      output <- factor(x, levels = tbl_lvl_parse$level)
+
   } else if (.return == "table") {
       output <- tbl_lvl_parse
+
   } else if (TRUE) {
       warning('Argument ".return" was not a recognized format. ',
               'In the function call, use "factor" or "table" instead. ',
@@ -61,7 +63,3 @@ fct_num_range <- function(.fctr,
   return(output)
 
 }
-
-
-
-
