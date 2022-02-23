@@ -33,10 +33,12 @@ fct_num_range <- function(x,
   lvl <- levels(x)
 
   # isolate any levels that don't contain any numbers
-  notnum <- str_subset(lvl, "\\d", negate = TRUE)
+  notnum <- lvl %>%
+    str_subset("\\d", negate = TRUE)
 
   # assemble the regex search string for upper boundary
-  rgx.upper <- paste("(?<=", .range_sep, ")[\\d,]+", sep = "")
+  rgx.upper <- .range_sep %>%
+    paste("(?<=", ., ")[\\d,]+", sep = "")
 
   # make a table of factor levels and their range boundaries
   tbl_lvl_parse <- list(level = lvl) %>%
@@ -49,7 +51,8 @@ fct_num_range <- function(x,
   output <- x
 
   if (.return == "factor") {
-      output <- factor(x, levels = tbl_lvl_parse$level)
+      output <- x %>%
+        factor(levels = tbl_lvl_parse$level)
 
   } else if (.return == "table") {
       output <- tbl_lvl_parse

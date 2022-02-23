@@ -40,9 +40,3 @@ norm_date_on_year <- function(date,
 
   return(date_norm)
 }
-
-
-test <- c("2020-07-01", "2020-10-31", "2021-01-14", "2021-06-30", "2021-07-12") |>
-  as.Date()
-
-norm_date_on_year(test)
