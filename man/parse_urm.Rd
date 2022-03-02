@@ -5,13 +5,13 @@
 \title{Parse the fortified, standardized race and ethnicity columns in the dataset,
 and fortify with a new column, calculated URM status.}
 \usage{
-parse_urm(.data)
+parse_urm(data)
 }
 \arguments{
-\item{.data}{A dataframe or tibble}
+\item{data}{A data.frame or tibble}
 }
 \value{
-Dataframe or tibble fortified with new column
+Data.frame or tibble fortified with new column
 }
 \description{
 Parse the fortified, standardized race and ethnicity columns in the dataset,

@@ -5,7 +5,7 @@
 \title{Parse code-based racial identity field and fortify the dataset with
 individual fields for each of the IPEDS racial categories.}
 \usage{
-parse_race_code(.data, race.field, hispanic.field)
+parse_race_code(data, race.field, hispanic.field)
 }
 \arguments{
 \item{hispanic.field}{}

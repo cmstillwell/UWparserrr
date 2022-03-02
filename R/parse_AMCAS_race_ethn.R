@@ -38,9 +38,9 @@ parse_race_text <- function(data, race.field, hispanic.field) {
 #' Parse code-based racial identity field and fortify the dataset with
 #' individual fields for each of the IPEDS racial categories.
 #'
-#' @param data
-#' @param race.field
-#' @param hispanic.field
+#' @param data A data.frame containing race/ethnicity data
+#' @param race.field Field name for racial self-identifications
+#' @param hispanic.field Field name for Hispanic ethnicity self-identification
 #'
 #' @return Dataframe or tibble fortified with new columns
 parse_race_code <- function(data, race.field, hispanic.field) {
@@ -68,7 +68,6 @@ parse_race_code <- function(data, race.field, hispanic.field) {
 #' @return A data.frame
 #' @export
 #'
-#' @examples
 parse_hispanic_boolean <- function(data, hispanic.field) {
   require(dplyr)
 
@@ -88,7 +87,6 @@ parse_hispanic_boolean <- function(data, hispanic.field) {
 #' @return A data.frame
 #' @export
 #'
-#' @examples
 parse_hispanic_code <- function(data, hispanic.field) {
   require(dplyr)
   require(stringr)
@@ -109,7 +107,6 @@ parse_hispanic_code <- function(data, hispanic.field) {
 #' @return A fortified data.frame
 #' @export
 #'
-#' @examples
 parse_hispanic_text <- function(data, hispanic.field) {
   require(dplyr)
   require(stringr)

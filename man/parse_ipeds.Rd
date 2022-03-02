@@ -5,10 +5,10 @@
 \title{Creates a single, IPEDS-standardized field for race/ethnicity based on the
 individual fields created through the 'parse_race' function}
 \usage{
-parse_ipeds(.data)
+parse_ipeds(data)
 }
 \arguments{
-\item{.data}{A dataframe or tibble}
+\item{data}{A dataframe or tibble}
 }
 \value{
 Dataframe or tibble fortified with new column

@@ -5,10 +5,10 @@
 \title{Parse text-based racial identity field and fortify the dataset with
 individual fields for each of the IPEDS racial categories.}
 \usage{
-parse_race_text(.data, race.field, hispanic.field)
+parse_race_text(data, race.field, hispanic.field)
 }
 \arguments{
-\item{.data}{A data.frame or tibble}
+\item{data}{A data.frame or tibble}
 
 \item{race.field}{Unquoted name of a field}
 

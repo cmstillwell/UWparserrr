@@ -5,10 +5,10 @@
 \title{Tests whether all the parsed, individual racial data fields are present in
 the supplied dataframe/tibble}
 \usage{
-assert_IPEDS_fields(.data)
+assert_IPEDS_fields(data)
 }
 \arguments{
-\item{.data}{A dataframe or tibble}
+\item{data}{A dataframe or tibble}
 }
 \value{
 Boolean: TRUE (if all fields are present), FALSE (if any are missing)
