@@ -3,11 +3,13 @@
 #' Parse text-based racial identity field and fortify the dataset with
 #' individual fields for each of the IPEDS racial categories.
 #'
-#' @param .data Dataframe or tibble
+#' @param .data A data.frame or tibble
 #' @param race.field Unquoted name of a field
 #' @param hispanic.field Unquoted name of a field
 #'
-#' @return Dataframe or tibble fortified with new columns
+#' @return A data.frame or tibble fortified with new columns
+#'
+#' @export
 
 parse_race_text <- function(.data, race.field, hispanic.field) {
   require(tidyverse)

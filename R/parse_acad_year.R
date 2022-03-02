@@ -2,6 +2,9 @@
 #'
 #' @param date a date object
 #' @param start a date object or string coercible into a date
+#'
+#' @export
+#'
 parse_acad_year <- function(date,
                             start = as.Date("1970-07-01")) {
 

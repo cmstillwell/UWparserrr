@@ -1,3 +1,15 @@
+#' Title
+#'
+#' @param folder_path A directory path
+#' @param file_pattern Regular expression selecting file list to be sorted
+#' @param n_return How many files should be returned?
+#' @param date_sort Which file date property should be used for sorting?
+#' @param skip_temp Should temporary files be skipped? (Almost always "yes")
+#' @param paths_only Return the full, sorted file paths?
+#'
+#' @return A list of fully expanded file paths
+#' @export
+#'
 sort_files_by_date <- function(folder_path  = getwd(),
                                file_pattern = NULL,
                                n_return     = NULL,

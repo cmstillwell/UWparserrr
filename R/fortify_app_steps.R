@@ -4,6 +4,8 @@
 #'
 #' @return The input data.frame with several additional columns for each of the
 #' application steps: complete, interviewed, accepted, matriculated
+#'
+#' @export
 
 fortify_app_steps <- function(df.omnibus) {
 

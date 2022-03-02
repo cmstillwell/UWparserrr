@@ -17,6 +17,8 @@
 #'
 #' @returns Either the input factor re-leveled or the table of levels parsed into columns
 #'
+#' @export
+#'
 fct_num_range <- function(x,
                           .range_sep = " - ",
                           .return = "factor") {

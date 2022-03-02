@@ -5,6 +5,7 @@
 #' @param res_amcas AMCAS residency response, field inside dataframe
 #' @param res_state AMCAS state of residence, field inside dataframe
 #' @return A dataframe with the Wisconsin residency field appended
+#'
 #' @export
 #'
 #' @examples

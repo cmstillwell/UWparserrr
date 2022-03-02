@@ -5,6 +5,9 @@
 #' @param parsed.gender An unquoted field name to be appended to 'data'
 #'
 #' @return The input data.frame fortified with a standardized gender column
+#'
+#' @export
+#'
 parse_gender <- function(data,
                          gender.field = gender_identity,
                          parsed.gender = gender) {

@@ -4,6 +4,8 @@
 #' @param acad_year a 4-digit integer giving the academic, fiscal, or admissions cycle year
 #' @param anchor_date the date on which to normalize the input date(s)
 #' @param format what the function should return, either a date or count of days from the anchor date
+#'
+#' @export
 
 norm_date_on_year <- function(date,
                               acad_year = format(Sys.Date(), "%Y") |> as.numeric(),
