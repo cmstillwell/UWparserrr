@@ -8,7 +8,11 @@ individual fields for each of the IPEDS racial categories.}
 parse_race_code(data, race.field, hispanic.field)
 }
 \arguments{
-\item{hispanic.field}{}
+\item{data}{A data.frame containing race/ethnicity data}
+
+\item{race.field}{Field name for racial self-identifications}
+
+\item{hispanic.field}{Field name for Hispanic ethnicity self-identification}
 }
 \value{
 Dataframe or tibble fortified with new columns
