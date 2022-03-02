@@ -11,18 +11,15 @@ parse_gender <- function(data,
   require(dplyr)
   require(stringr)
 
-  enquo(gender.field)
-  enquo(parsed.gender)
+  gender.field <- enquo(gender.field)
 
   stopifnot(is.data.frame(data))
 
   data <- data %>%
-    mutate(!!parsed.gender = case_when(
-      str_detect(!!gender.field, "^[M|m][ale]?$")   ~ "Male",
-      str_detect(!!gender.field, "^[F|f][emale]?$") ~ "Female",
-      TRUE                                          ~ "Nonbinary"
-      )
-    )
+    mutate({{ parsed.gender }} := case_when(
+      str_detect(!!gender.field, "^[M|m](ale)?$")   ~ "Male",
+      str_detect(!!gender.field, "^[F|f](emale)?$") ~ "Female",
+      TRUE                                          ~ "Nonbinary"))
 
   return(data)
 }
