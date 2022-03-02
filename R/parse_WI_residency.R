@@ -8,7 +8,6 @@
 #'
 #' @export
 #'
-#' @examples
 parse_WI_residency <- function(df,
                                res_registar = residency_registrar,
                                res_amcas    = residency_response,
