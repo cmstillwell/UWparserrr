@@ -28,7 +28,7 @@ sort_files_by_date <- function(folder_path  = getwd(),
 
   # Error handling - Ensure file list length > 0
   if (length(file_names) == 0) {
-    stop('Function `list.files` returned nothing matching the specified pattern. Check your file pattern or directory specifications.')
+    stop('Function `list.files` returned nothing matching the specified pattern. Check your file pattern or directory.')
   }
 
   # Sort file names by date passed from function call
