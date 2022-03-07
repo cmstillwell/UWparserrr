@@ -2,6 +2,7 @@
 
 export(fct_num_range)
 export(fortify_app_steps)
+export(mean_trim_by_n)
 export(norm_date_on_year)
 export(parse_WI_residency)
 export(parse_acad_year)
