@@ -6,7 +6,7 @@ Authors@R:
            "chris.stillwell@wisc.edu", role = c("aut", "cre"),
            comment = c(ORCID = "YOUR-ORCID-ID"))
 Description: 
-    This package includes a variety of helper functioned used when dealing with
+    This package includes a variety of helper functions used when dealing with
       UWSMPH medical student admissions and academic data. Typically the source
       data are one of these three databses: AMP/AMCAS, SIS, or OASIS.
 License: MIT + file LICENSE
