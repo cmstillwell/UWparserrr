@@ -3,7 +3,7 @@
 #' @param x A numeric vector
 #' @param n.trim A number
 #'
-#' @return The vector mean with 'n.trim' values removed from each end before caculating
+#' @return The vector mean with 'n.trim' values removed from each end before calculating
 #' @export
 #'
 mean_trim_by_n <- function(x, n.trim) {
