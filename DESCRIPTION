@@ -1,6 +1,6 @@
 Package: UWparserrr
 Title: Helper Functions for UWSMPH Data Analysis
-Version: 2022.03.08.0010
+Version: 2022.03.08.1200
 Authors@R: 
     person("Christopher", "Stillwell", , 
            "chris.stillwell@wisc.edu", role = c("aut", "cre"),
