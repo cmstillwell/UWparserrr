@@ -1,4 +1,4 @@
-#' Title
+#' Sort selected files in a directory based on their date attribute
 #'
 #' @param folder_path A directory path
 #' @param file_pattern Regular expression selecting file list to be sorted
@@ -38,9 +38,12 @@ sort_files_by_date <- function(folder_path  = getwd(),
     file_names <- subset(file_names, keep)
   }
 
-  # Error handling - Ensure file list length > 0
+  # Warning - File list length = 0
   if (length(file_names) == 0) {
-    stop('Function `list.files` returned nothing matching the specified pattern. Check your file pattern or directory.')
+    warning(paste0('Function `list.files` returned no files matching the pattern. ',
+                   'Check both the file search (regex) string: "', file_pattern,
+                   '" and the searched folder: "', folder_path, '".'))
+    return(file_names)
   }
 
   # Sort file names by date passed from function call
