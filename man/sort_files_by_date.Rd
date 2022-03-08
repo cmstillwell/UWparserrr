@@ -2,7 +2,7 @@
 % Please edit documentation in R/sort_files_by_date.R
 \name{sort_files_by_date}
 \alias{sort_files_by_date}
-\title{Title}
+\title{Sort selected files in a directory based on their date attribute}
 \usage{
 sort_files_by_date(
   folder_path = getwd(),
@@ -30,5 +30,5 @@ sort_files_by_date(
 A list of fully expanded file paths
 }
 \description{
-Title
+Sort selected files in a directory based on their date attribute
 }
