@@ -1,4 +1,4 @@
-#' Sort file list based on their date attribute
+#' Sort file list based on their date attributes
 #'
 #' @param file_names A character vector of fully expanded file paths (not a list)
 #' @param n_return The number of files to be returned or "all" of them
@@ -48,6 +48,10 @@ sort_files_by_date <- function(file_names,
       path()
   }
 
+  warning(paste0('This function has been depreciated and is no longer in active ',
+                 'development. Workflows using "select_files_by_date" are ',
+                 'preferred since they separte declaration of the path(s)',
+                 'to be searched from the sorting and return steps.'))
   return(sorted_names)
 
 }

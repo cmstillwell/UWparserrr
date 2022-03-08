@@ -1,6 +1,6 @@
 #' Sort selected files in a directory based on their date attribute
 #'
-#' @param folder_path A directory path
+#' @param folder_path A list or character vector of directories to search
 #' @param file_pattern Regular expression selecting file list to be sorted
 #' @param n_return How many files should be returned?
 #' @param date_sort Which file date property should be used for sorting?
@@ -10,7 +10,8 @@
 #' @return A list of fully expanded file paths
 #' @export
 #'
-sort_files_by_date <- function(folder_path  = getwd(),
+
+pull_files_by_date <- function(folder_path  = getwd(),
                                file_pattern = NULL,
                                n_return     = NULL,
                                date_sort    = "mtime",
