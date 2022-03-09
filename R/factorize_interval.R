@@ -3,13 +3,12 @@
 #' @param x a lubridate interval object
 #'
 factorize_interval <- function(x) {
-  require(dplyr)
   require(stringr)
 
-  fctr <- x %>%
-    as.character() %>%
-    str_replace_all(pattern = " UTC", replacement = "") %>%
-    str_replace_all(pattern = "--", replacement = " to ") %>%
+  fctr <- x |>
+    as.character() |>
+    str_replace_all(pattern = " UTC", replacement = "") |>
+    str_replace_all(pattern = "--", replacement = " to ") |>
     as.factor()
 
   return(fctr)
