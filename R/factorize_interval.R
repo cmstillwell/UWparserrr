@@ -1,6 +1,8 @@
 #' Converts a lubridate interval object into a character factor
 #'
 #' @param x a lubridate interval object
+#' @return a string vector
+#' @export
 #'
 factorize_interval <- function(x) {
   require(stringr)

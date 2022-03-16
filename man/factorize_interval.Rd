@@ -9,6 +9,9 @@ factorize_interval(x)
 \arguments{
 \item{x}{a lubridate interval object}
 }
+\value{
+a string vector
+}
 \description{
 Converts a lubridate interval object into a character factor
 }

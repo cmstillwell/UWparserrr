@@ -14,7 +14,6 @@
 #'
 #' @export
 #'
-#' @examples
 build_date_filename <- function(file.name,
                                 date.time      = Sys.time(),
                                 round.time.to  = "day",
