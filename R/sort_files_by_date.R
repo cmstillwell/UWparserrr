@@ -44,8 +44,7 @@ sort_files_by_date <- function(file_names,
   # removes file info to return only names
   if (return_what == "paths") {
     sorted_names <- sorted_names %>%
-      pull(name) %>%
-      path()
+      pull(name)
   }
 
   return(sorted_names)
