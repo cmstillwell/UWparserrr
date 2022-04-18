@@ -3,6 +3,7 @@
 export(build_date_filename)
 export(factorize_interval)
 export(fct_num_range)
+export(filter_files_by_date)
 export(fortify_app_steps)
 export(mean_trim_by_n)
 export(norm_date_on_year)

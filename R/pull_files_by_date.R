@@ -75,9 +75,9 @@ pull_files_by_date <- function(folder_path  = getwd(),
   }
 
   warning(paste0('This function has been depreciated and is no longer in active ',
-                 'development. Workflows using "select_files_by_date" are ',
-                 'preferred since they separte declaration of the path(s)',
-                 'to be searched from the sorting and return steps.'))
+                 'development. Workflows using "filter_files_by_date" are ',
+                 'preferred since they separate declaration of the path(s)',
+                 'to be searched from the filtering and return steps.'))
 
   return(sorted_names)
 
