@@ -22,7 +22,7 @@ filter_files_by_date <- function(file_names,
   }
 
   # Return must be correctly specified
-  if (return_what == "paths" | return_what == "table") {
+  if (return_what != "paths" & return_what != "table") {
     stop('Argument `return_what` must be either "paths" or "table".')
   }
 
