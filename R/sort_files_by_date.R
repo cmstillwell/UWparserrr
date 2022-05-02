@@ -17,7 +17,7 @@ sort_files_by_date <- function(file_names,
 
   # Depreciation warning
   warning(paste0('This function has been depreciated and is no longer in active ',
-                 'development. Use "filter_files_by_date" instead as it keeps',
+                 'development. Use "filter_files_by_date" instead as it keeps ',
                  'consistent naming conventions with the rest the "tidyverse."'))
 
   # Error handling
