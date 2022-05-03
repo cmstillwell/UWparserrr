@@ -16,6 +16,9 @@ filter_files_by_date <- function(file_names,
   require(tidyverse)
 
   # Error handling
+
+  # File
+
   # Date filter argument correct
   if (!date_filter %>% str_detect('^(m|a|c)time$')) {
     stop('Argument `date_filter` must be one of "mtime", "atime", or "ctime".')

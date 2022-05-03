@@ -25,10 +25,10 @@ update_file_repo <- function(files,
   output_msg = paste0(
     action,
     " operation completed. ",
-    len(dest_path),
-    " file(s) processed.",
+    length(dest_path),
+    " file(s) processed."
+    )
 
-  )
   return(output_msg)
 
 }
