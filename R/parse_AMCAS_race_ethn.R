@@ -8,7 +8,6 @@
 #' @param hispanic.field Unquoted name of a field
 #'
 #' @return A data.frame or tibble fortified with new columns
-#'
 #' @export
 
 parse_race_text <- function(data, race.field, hispanic.field) {
@@ -43,6 +42,8 @@ parse_race_text <- function(data, race.field, hispanic.field) {
 #' @param hispanic.field Field name for Hispanic ethnicity self-identification
 #'
 #' @return Dataframe or tibble fortified with new columns
+#' @export
+
 parse_race_code <- function(data, race.field, hispanic.field) {
   require(tidyverse)
 
@@ -86,7 +87,7 @@ parse_hispanic_boolean <- function(data, hispanic.field) {
 #'
 #' @return A data.frame
 #' @export
-#'
+
 parse_hispanic_code <- function(data, hispanic.field) {
   require(dplyr)
   require(stringr)
@@ -106,7 +107,7 @@ parse_hispanic_code <- function(data, hispanic.field) {
 #'
 #' @return A fortified data.frame
 #' @export
-#'
+
 parse_hispanic_text <- function(data, hispanic.field) {
   require(dplyr)
   require(stringr)
@@ -127,6 +128,8 @@ parse_hispanic_text <- function(data, hispanic.field) {
 #' @param data A data.frame or tibble
 #'
 #' @return Data.frame or tibble fortified with new column
+#' @export
+
 parse_urm <- function(data) {
   require(tidyverse)
 
@@ -152,6 +155,8 @@ parse_urm <- function(data) {
 #' @param data A dataframe or tibble
 #'
 #' @return Dataframe or tibble fortified with new column
+#' @export
+
 parse_ipeds <- function(data) {
   require(tidyverse)
 
@@ -186,6 +191,7 @@ parse_ipeds <- function(data) {
 #' @param .field A character vector
 #'
 #' @return TRUE or FALSE
+
 test_race_field <- function(.field) {
   require(tidyverse)
   .field %>%
