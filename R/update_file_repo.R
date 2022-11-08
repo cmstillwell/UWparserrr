@@ -14,21 +14,34 @@ update_file_repo <- function(files,
                              overwrite = FALSE) {
   require(fs)
 
-  dest_path <- path(destination, path_file(files))
+  # process only if the vector of file names has length > 0
+  if (length(files) > 0) {
 
-  file_copy(files, dest_path, overwrite = overwrite)
+    dest_path <- path(destination, path_file(files))
 
-  if (action == "move") {
-    file_delete(files)
+    file_copy(files, dest_path, overwrite = overwrite)
+
+    if (action == "move") {
+      file_delete(files)
+    }
+
+    output_msg = paste0(
+      action,
+      " operation completed. ",
+      length(dest_path),
+      " file(s) processed."
+      )
+
+    message(output_msg)
+    return(TRUE)
   }
 
-  output_msg = paste0(
-    action,
-    " operation completed. ",
-    length(dest_path),
-    " file(s) processed."
-    )
-
-  return(output_msg)
+  # return error for when file path argument length equals zero.
+  if (length(files) = 0) {
+    return(FALSE)
+    warning("No files processed because argument was length 0.")
+  }
 
 }
+
+
