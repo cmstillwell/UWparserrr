@@ -61,6 +61,6 @@ filter_files_by_date <- function(file_names,
         pull(name)
     }
 
-  return(filtered_names)
+    return(filtered_names)
 
 }
