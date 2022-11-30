@@ -9,9 +9,9 @@
 #' @export
 #'
 filter_files_by_date <- function(file_names,
-                               n_return     = "all",
-                               date_filter  = "mtime",
-                               return_what  = "paths"){
+                                 n_return     = "all",
+                                 date_filter  = "mtime",
+                                 return_what  = "paths"){
 
   require(tidyverse)
 
