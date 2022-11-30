@@ -37,7 +37,7 @@ update_file_repo <- function(files,
   }
 
   # return error for when file path argument length equals zero.
-  if (length(files) = 0) {
+  if (length(files) == 0) {
     return(FALSE)
     warning("No files processed because argument was length 0.")
   }
