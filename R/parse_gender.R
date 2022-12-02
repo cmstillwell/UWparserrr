@@ -20,9 +20,11 @@ parse_gender <- function(data,
 
   data <- data %>%
     mutate({{ parsed.gender }} := case_when(
-      str_detect(!!gender.field, "^[M|m](ale)?$")   ~ "Male",
-      str_detect(!!gender.field, "^[F|f](emale)?$") ~ "Female",
-      TRUE                                          ~ "Nonbinary"))
+      str_detect(!!gender.field, "^[M|m](ale)$")   ~ "Male",
+      str_detect(!!gender.field, "^[M|m](an)$")    ~ "Male",
+      str_detect(!!gender.field, "^[F|f](emale)$") ~ "Female",
+      str_detect(!!gender.field, "^[W|w](oman)$")  ~ "Female",
+      TRUE                                         ~ "Nonbinary"))
 
   return(data)
 }
