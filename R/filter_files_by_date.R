@@ -9,17 +9,26 @@
 #' @export
 #'
 filter_files_by_date <- function(file_names,
-                               n_return     = "all",
-                               date_filter    = "mtime",
-                               return_what  = "paths"){
+                                 n_return     = "all",
+                                 date_filter  = "mtime",
+                                 return_what  = "paths"){
 
   require(tidyverse)
 
   # Error handling
 
+<<<<<<< HEAD
   # File
   assertthat::assert_that(length(file_names) > 0,
                           msg = "No file paths passed to filter function.")
+=======
+  # Pass-through when file_names is length = 0
+  if (length(file_names) == 0) {
+    warning("Argument 'file_names' is zero-length. Execution continuing.")
+    return(file_names)
+    exit()
+  }
+>>>>>>> 42e45243a422bf47633dcb7f6c9177488b65c27b
 
   # Date filter argument correct
   if (!date_filter %>% str_detect('^(m|a|c)time$')) {
@@ -32,30 +41,31 @@ filter_files_by_date <- function(file_names,
   }
 
   # Filter file names by date passed from function call
-  filtered_names <- file_names %>%
+  #   handle zero-length paths
+  filtered_names <-
+    file_names %>%
     map_df(file.info, extra_cols = FALSE) %>%
     select(contains("time")) %>%
     rownames_to_column("name") %>%
     arrange(
-      desc(
-        case_when(
-          date_filter == "mtime" ~ mtime,
-          date_filter == "atime" ~ atime,
-          date_filter == "ctime" ~ ctime)
+      desc(case_when(date_filter == "mtime" ~ mtime,
+                     date_filter == "atime" ~ atime,
+                     date_filter == "ctime" ~ ctime))
       )
-    )
 
-  # return x number of files
-  if (is.numeric(n_return)) {
-    filtered_names <- filtered_names %>%
-      slice(1:n_return)
-  }
+    # return x number of files
+    if (is.numeric(n_return)) {
+      filtered_names <-
+        filtered_names %>%
+        slice(1:n_return)
+    }
 
-  # removes file info to return only names
-  if (return_what == "paths") {
-    filtered_names <- filtered_names %>%
-      pull(name)
-  }
+    # removes file info to return only names
+    if (return_what == "paths") {
+      filtered_names <-
+        filtered_names %>%
+        pull(name)
+    }
 
   return(filtered_names)
 
