@@ -18,6 +18,8 @@ filter_files_by_date <- function(file_names,
   # Error handling
 
   # File
+  assertthat::assert_that(length(file_names) > 0,
+                          msg = "No file paths passed to filter function.")
 
   # Date filter argument correct
   if (!date_filter %>% str_detect('^(m|a|c)time$')) {
