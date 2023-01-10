@@ -17,19 +17,18 @@ parse_race_text <- function(data, race.field, hispanic.field) {
   hispanic.field <- enquo(hispanic.field)
 
   data <- data %>%
-    mutate(.Black      = str_detect(!!race.field,
-                                    regex("afric|black", TRUE)),
-           .Asian      = str_detect(!!race.field, regex("asian", TRUE)),
-           .AsianURM   = str_detect(!!race.field,
-                                    regex("viet|laot|cambod|hmong",
-                                          TRUE)),
-           .HawaiianPI = str_detect(!!race.field,
-                                    regex("hawaii|pacific", TRUE)),
-           .Native     = str_detect(!!race.field,
-                                    regex("american indian|tribe", TRUE)),
-           .White      = str_detect(!!race.field, regex("white", TRUE)),
-           .Hispanic   = str_detect(!!hispanic.field,
-                                    regex("(?<!not )hispanic|yes|^y$", TRUE)))
+    mutate(RE_Black      = str_detect(!!race.field,
+                                      regex("afric|black", TRUE)),
+           RE_Asian      = str_detect(!!race.field, regex("asian", TRUE)),
+           RE_AsianURM   = str_detect(!!race.field,
+                                      regex("viet|laot|cambod|hmong", TRUE)),
+           RE_HawaiianPI = str_detect(!!race.field,
+                                      regex("hawaii|pacific", TRUE)),
+           RE_Native     = str_detect(!!race.field,
+                                      regex("american indian|tribe", TRUE)),
+           RE_White      = str_detect(!!race.field, regex("white", TRUE)),
+           RE_Hispanic   = str_detect(!!hispanic.field,
+                                      regex("(?<!not )hispanic|yes|^y$", TRUE)))
   return(data)
 }
 
@@ -51,12 +50,14 @@ parse_race_code <- function(data, race.field, hispanic.field) {
   hispanic.field <- enquo(hispanic.field)
 
   data <- data %>%
-    mutate(.Black      = str_detect(!!race.field, "(AA|B|BC|BO)(;|$)"),
-           .Asian      = str_detect(!!race.field, "((;|^)A|A(C|F|J|K|O|P)|BA)(;|$)"),
-           .AsianURM   = str_detect(!!race.field, "(AV|CA|LA)(;|$)"),
-           .HawaiianPI = str_detect(!!race.field, "P(H|O|S)(;|$)"),
-           .Native     = str_detect(!!race.field, "I(;|$)"),
-           .White      = str_detect(!!race.field, "W(;|$)"))
+    mutate(RE_Black      = str_detect(!!race.field, "(AA|B|BC|BO)(;|$)"),
+           RE_Asian      = str_detect(!!race.field, "((;|^)A|A(C|F|J|K|O|P)|BA)(;|$)"),
+           RE_AsianURM   = str_detect(!!race.field, "(AV|CA|LA)(;|$)"),
+           RE_HawaiianPI = str_detect(!!race.field, "P(H|O|S)(;|$)"),
+           RE_Native     = str_detect(!!race.field, "I(;|$)"),
+           RE_White      = str_detect(!!race.field, "W(;|$)"),
+           RE_Hispanic   = str_detect(!!hispanic.field,
+                                      regex("(?<!not )hispanic|yes|^y$", TRUE)))
   return(data)
 }
 
@@ -75,7 +76,7 @@ parse_hispanic_boolean <- function(data, hispanic.field) {
   hispanic.field <- enquo(hispanic.field)
 
   data <- data %>%
-    mutate(.Hispanic = !!hispanic.field)
+    mutate(RE_Hispanic = !!hispanic.field)
   return(data)
 }
 
@@ -95,7 +96,7 @@ parse_hispanic_code <- function(data, hispanic.field) {
   hispanic.field <- enquo(hispanic.field)
 
   data <- data %>%
-    mutate(.Hispanic = str_detect(!!hispanic.field, "(^|;)U(;|$)"))
+    mutate(RE_Hispanic = str_detect(!!hispanic.field, "(^|;)U(;|$)"))
   return(data)
 }
 
@@ -115,9 +116,9 @@ parse_hispanic_text <- function(data, hispanic.field) {
   hispanic.field <- enquo(hispanic.field)
 
   data <- data %>%
-    mutate(.Hispanic = str_detect(!!hispanic.field,
-                                  regex("(?<!not )hispanic|^y$|yes",
-                                        ignore.case = TRUE)))
+    mutate(RE_Hispanic = str_detect(!!hispanic.field,
+                                    regex("(?<!not )hispanic|^y$|yes",
+                                          ignore.case = TRUE)))
   return(data)
 }
 
@@ -140,11 +141,9 @@ parse_urm <- function(data) {
   }
 
   data <- data %>%
-    mutate(.URM =
-             if_else(as.numeric(.Black + .AsianURM + .HawaiianPI + .Native +
-                                  .Hispanic) > 0,
-                     TRUE,
-                     FALSE))
+    mutate(RE_URM = if_else(RE_Black + RE_AsianURM + RE_HawaiianPI + RE_Native +
+                            RE_Hispanic > 0, TRUE, FALSE))
+
   return(data)
 }
 
@@ -167,17 +166,17 @@ parse_ipeds <- function(data) {
   }
 
   data <- data %>%
-    mutate(.Count = as.numeric(.Black + (.Asian | .AsianURM) + .HawaiianPI +
-                                 .Native + .White + .Hispanic),
-           .IPEDS =
-             case_when(.Hispanic   ~ "Hispanic/Latino",
-                       .Count > 1  ~ "Two or more races",
-                       .AsianURM   ~ "SE Asian (URM)",
-                       .Asian      ~ "Asian",
-                       .Black      ~ "Black / African American",
-                       .HawaiianPI ~ "Native Hawaiian or Other Pacific Islander",
-                       .Native     ~ "American Indian or Alaska Native",
-                       .White      ~ "White",
+    mutate(RE_Count = (RE_Black + (RE_Asian | RE_AsianURM) + RE_HawaiianPI +
+                       RE_Native + RE_White + RE_Hispanic),
+           RE_IPEDS =
+             case_when(RE_Hispanic   ~ "Hispanic/Latino",
+                       RE_Count > 1  ~ "Two or more races",
+                       RE_AsianURM   ~ "SE Asian (URM)",
+                       RE_Asian      ~ "Asian",
+                       RE_Black      ~ "Black / African American",
+                       RE_HawaiianPI ~ "Native Hawaiian or Other Pacific Islander",
+                       RE_Native     ~ "American Indian or Alaska Native",
+                       RE_White      ~ "White",
                        TRUE        ~ "Race/ethnicity unknown"))
   return(data)
 }
@@ -207,6 +206,6 @@ test_race_field <- function(.field) {
 #'
 #' @return Boolean: TRUE (if all fields are present), FALSE (if any are missing)
 assert_IPEDS_fields <- function(data) {
-  all(c(".Black", ".AsianURM", ".Asian", ".HawaiianPI", ".Native",
-        ".Hispanic") %in% names(data))
+  all(c("RE_Black", "RE_AsianURM", "RE_Asian", "RE_HawaiianPI", "RE_Native",
+        "RE_Hispanic") %in% names(data))
 }
