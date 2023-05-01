@@ -4,14 +4,14 @@
 \alias{delete_old_files}
 \title{Keep only the most recent file in a directory that matches a pattern}
 \usage{
-delete_old_files(path, file_pattern, return_dir = TRUE)
+delete_old_files(dir, file_pattern, return_dir = TRUE)
 }
 \arguments{
-\item{path}{Path/directory to be searched for matching files}
-
 \item{file_pattern}{Regular expression to find matching files}
 
 \item{return_dir}{True/False: Should the function return the working directory}
+
+\item{path}{Path/directory to be searched for matching files}
 }
 \value{
 Defaults to the working directory which helps with piped operations
