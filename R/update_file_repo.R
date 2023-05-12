@@ -11,8 +11,12 @@
 update_file_repo <- function(files,
                              destination = getwd(),
                              action = "copy",
+                             return = "dir",
                              overwrite = FALSE) {
   require(fs)
+
+  # Ensure a valid return type is indicated
+  assertthat::assert_that(return == "dir" | return == "logical")
 
   # process only if the vector of file names has length > 0
   if (length(files) > 0) {
@@ -33,14 +37,22 @@ update_file_repo <- function(files,
       )
 
     message(output_msg)
-    return(TRUE)
+
+    # Set return value
+    ifelse(return == "dir", destination, TRUE) |>
+      return()
   }
 
   # return error for when file path argument length equals zero.
   if (length(files) == 0) {
-    return(FALSE)
     warning("No files processed because argument was length 0.")
+
+    ifelse(return == "dir", destination, FALSE) |>
+      return()
+
   }
+
+
 
 }
 
