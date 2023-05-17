@@ -39,21 +39,16 @@ update_file_repo <- function(files,
     message(output_msg)
 
     # Set return value
-    ifelse(return == "dir", destination, TRUE) |>
-      return()
+    return(ifelse(return == "dir", destination, TRUE))
   }
 
   # return error for when file path argument length equals zero.
   if (length(files) == 0) {
     warning("No files processed because argument was length 0.")
 
-    ifelse(return == "dir", destination, FALSE) |>
-      return()
-
+    return(ifelse(return == "dir", destination, FALSE))
   }
 
-
-
-}
+  }
 
 
