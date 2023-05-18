@@ -8,6 +8,7 @@ update_file_repo(
   files,
   destination = getwd(),
   action = "copy",
+  return = "dir",
   overwrite = FALSE
 )
 }
