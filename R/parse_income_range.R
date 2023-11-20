@@ -18,7 +18,7 @@ parse_income_range <- function(income_range, stat_fun) {
   require(stringr)
   # Use regular expressions to find the income value
   # Search for a dollar sign followed by numbers and optional comma
-    matches <- str_extract_all(income_range), "\\$[0-9,]+")
+    matches <- str_extract_all(income_range, "\\$[0-9,]+")
 
   if (length(matches) == 0) {
     # No valid income value found
