@@ -17,39 +17,45 @@ update_file_repo <- function(files,
   require(fs)
   require(stringr)
 
-    # Ensure a valid return type is indicated
+  # Ensure a valid return type is indicated
   assertthat::assert_that(return == "dir" | return == "logical")
+  assertthat::assert_that(action == "copy" | action == "move")
 
-  # Manage the destination directory
-  if (clear_dest_dir == FALSE) {
-    n.dest.file <-
-      dir_ls(destination, type = "file") |>
-      length()
+  # Manage the destination directory based on the function option
 
-    chr.clear.msg <-
-      str_glue("{n.dest.file} file(s) are already in the destination folder:",
-               "'{destination}'. They have not been altered.")
-  }
+    # No change to directory
+    if (clear_dest_dir == FALSE) {
+      n.dest.file <-
+        dir_ls(destination, type = "file") |>
+        length()
 
-  if (clear_dest_dir) {
-    dir_ls(destination, type = "file") |>
-    file_delete()
-
-    chr.clear.msg <-
-      str_glue("All files in '{destination}' have been deleted.")
-  }
-
-
-  if (is.character(clear_dest_dir)) {
-    dir_ls(destination, regexp = clear_dest_dir) |>
-    file_delete()
-
-    chr.clear.msg <-
-      str_glue("All files in '{destination}' matching the regular expression ",
-               "'{clear_dest_dir}' have been deleted.")
+      clear.dir.msg <-
+        str_glue("{n.dest.file} file(s) already in destination folder:",
+                 "'{destination}'. Existing file(s) unaltered.")
     }
 
-  # process only if the vector of file names has length > 0
+    # Delete all files in destination directory
+    if (clear_dest_dir) {
+      dir_ls(destination, type = "file") |>
+      file_delete()
+
+      clear.dir.msg <-
+        str_glue("All files in '{destination}' have been deleted.")
+    }
+
+    # Delete all files matching the search string as a regular expression
+    if (is.character(clear_dest_dir)) {
+      dir_ls(destination, regexp = clear_dest_dir) |>
+      file_delete()
+
+      clear.dir.msg <-
+        str_glue("All files in '{destination}' matching the regular expression ",
+                 "'{clear_dest_dir}' have been deleted.")
+      }
+
+
+  # Process input file string of names only it exists (i.e., it has length > 0)
+
   if (length(files) > 0) {
 
     dest_path <- path(destination, path_file(files))
@@ -61,17 +67,17 @@ update_file_repo <- function(files,
     }
 
     output_msg <-
-      str_glue(chr.clear,
+      str_glue(clear.dir.msg,
                "{action} operation completed",
                "{length(dest_path)} new file(s) processed.",
                .sep = "; ")
     message(output_msg)
 
-    # Set return value
+    # set return value and exit function
     return(ifelse(return == "dir", destination, TRUE))
   }
 
-  # return error for when file path argument length equals zero.
+  # Return error when file path argument length = 0.
   if (length(files) == 0) {
     warning(str_glue("No files to {action} because the 'files' argument length is 0."))
 
