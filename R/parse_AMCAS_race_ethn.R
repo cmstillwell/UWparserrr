@@ -131,18 +131,32 @@ parse_hispanic_text <- function(data, hispanic.field) {
 #' @return Data.frame or tibble fortified with new column
 #' @export
 
-parse_urm <- function(data) {
+parse_urm <- function(data, framework) {
   require(tidyverse)
 
-  # Confirm that all the individual URM fields exist in data.
+  # Confirm that all the individual URM fields exist in data
   if (assert_IPEDS_fields(data) == FALSE) {
     stop("'data' must contain all '...' parsed fields. Try running the
         'parse_race' function first.")
   }
 
-  data <- data %>%
-    mutate(RE_URM = if_else(RE_Black + RE_AsianURM + RE_HawaiianPI + RE_Native +
-                            RE_Hispanic > 0, TRUE, FALSE))
+  # Check if "framework" is either "UW",  "IPEDS", or "both"
+  assertthat::assert_that(framework %in% c("UW", "IPEDS", "both"),
+                          msg = "The 'framework' argument must be 'UW', 'IPEDS', or 'both'.")
+
+  # Parse according to UW's URM definition (includes SE Asian ethnicities)
+  if (framework %in% c("UW", "both")) {
+    data <- data  |>
+      mutate(URM_UW = if_else(RE_Black | RE_AsianURM | RE_HawaiianPI |
+                              RE_Native | RE_Hispanic, TRUE, FALSE))
+  }
+
+  # Parse according to IPEDS' URM definition
+  if (framework %in% c("IPEDS", "both")) {
+    data <- data  |>
+      mutate(URM_IPEDS = if_else(RE_Black | RE_HawaiianPI | RE_Native | RE_Hispanic,
+                                 TRUE, FALSE))
+  }
 
   return(data)
 }
