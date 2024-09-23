@@ -139,6 +139,10 @@ parse_urm <- function(data, framework) {
     stop("'data' must contain all '...' parsed fields. Try running the
         'parse_race' function first.")
   }
+  # Check if "framework" is missing
+  if (missing(framework)) {
+    stop("The 'framework' argument is missing. Please specify 'UW', 'IPEDS', or 'both'.")
+  }
 
   # Check if "framework" is either "UW",  "IPEDS", or "both"
   assertthat::assert_that(framework %in% c("UW", "IPEDS", "both"),
