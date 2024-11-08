@@ -19,21 +19,30 @@ norm_date_on_year <- function(date,
   # Ensure anchor_date is a valid date
   assert_that(!is.na(parse_date_time(anchor_date, orders = "ymd")))
 
+<<<<<<< HEAD
   # If it is defined, ensure anchor_year is a positive integer
   if (!missing(anchor_year)) {
     assert_that(
       is.count(anchor_year),
       msg = 'Since "anchor_year" is defined, it must be a valid year, i.e., a positive integer.')
   }
+=======
+>>>>>>> 417bbecea0926273ac0e16d3fb502d54ba6d9718
 
   anchor_date <- parse_date_time(anchor_date, orders = "ymd")
   anchor <- list(
     date = anchor_date,
+<<<<<<< HEAD
     yr   = ifelse(missing(anchor_year),
                   format.Date(anchor_date, "%Y") |> as.numeric(),
                   anchor_year),
     mon  = format.Date(anchor_date, "%m") |> as.numeric(),
     day  = format.Date(anchor_date, "%d") |> as.numeric()
+=======
+    yr   = format(anchor_date, "%Y") |> as.numeric(),
+    mon  = format(anchor_date, "%m") |> as.numeric(),
+    day  = format(anchor_date, "%d") |> as.numeric()
+>>>>>>> 417bbecea0926273ac0e16d3fb502d54ba6d9718
   )
 
   # Ensure acad_year is a vector of positive integers
