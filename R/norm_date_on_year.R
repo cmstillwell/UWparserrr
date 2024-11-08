@@ -5,23 +5,30 @@
 #' @param anchor_date the date on which to normalize the input date(s)
 #' @param format what the function should return, either a date or count of days from the anchor date
 #'
-#' @export
+#' @exportd
 
 norm_date_on_year <- function(date,
                               acad_year = format(Sys.Date(), "%Y") |> as.numeric(),
                               anchor_date = "2020-01-01",
                               format = "date") {
+  require(assertthat)
+  require(lubridate)
 
-  assertthat::assert_that(!is.na(lubridate::parse_date_time(anchor_date, orders = "ymd")))
-  anchor_date <- lubridate::parse_date_time(anchor_date, orders = "ymd")
+  # Ensure anchor_date is a valid date
+  assert_that(!is.na(parse_date_time(anchor_date, orders = "ymd")))
+
+
+  anchor_date <- parse_date_time(anchor_date, orders = "ymd")
   anchor <- list(
     date = anchor_date,
     yr   = format(anchor_date, "%Y") |> as.numeric(),
     mon  = format(anchor_date, "%m") |> as.numeric(),
-    day  = format(anchor_date, "%d") |> as.numeric(),
+    day  = format(anchor_date, "%d") |> as.numeric()
   )
 
-  assertthat::assert_that(assertthat::is.count(acad_year))
+  # Ensure acad_year is a vector of positive integers
+  assert_that(all(is.numeric(acad_year)), msg = '"acad_year" must be a vector of positive integers.')
+  assert_that(all(acad_year > 0), msg = '"acad_year" must be a vector of positive integers.')
 
   date <- list(
     full   = ,
@@ -31,7 +38,7 @@ norm_date_on_year <- function(date,
     yr_adj = format(date, "%Y") |> as.numeric() - acad_year
   )
 
-  assertthat::assert_that(grepl("date|count", format))
+  assert_that(grepl("date|count", format))
   if (format == "date") {
     date_norm <- ISOdate(anchor$yr + date$yr_adj, date$mon, date$day)
   } else if (format == "count") {
